@@ -37,7 +37,7 @@ services:
             - PMA_HOST=${MARIADB_HOST}
         restart: always
         depends_on:
-            - mysqldb
+            - mariadb
     mariadb:
         image: mariadb:${MARIADB_VERSION}
         container_name: ${MARIADB_HOST}
