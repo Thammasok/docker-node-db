@@ -1,0 +1,3 @@
+dockers/web/lb/logs/*
+dockers/web/mariadb/*
+.env
