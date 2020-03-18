@@ -1,5 +1,9 @@
 # docker-node-db
-nginx - nodejs  - mariadb - phpmyadmin
+This docker-compose run container
+1. nginx 
+2. mariadb / mysql
+3. phpmyadmin
+4. nodejs
 ---
 ## Docker Command
 
