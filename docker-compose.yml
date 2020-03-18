@@ -31,12 +31,13 @@ services:
         container_name: phpmyadmin
         environment:
             - PMA_ARBITRARY=1
+            # MYSQL_HOST
             # - PMA_HOST=${MYSQL_HOST}
+            # MARIADB_HOST
             - PMA_HOST=${MARIADB_HOST}
         restart: always
         depends_on:
-            # - mysqldb
-            - mariadb
+            - mysqldb
     mariadb:
         image: mariadb:${MARIADB_VERSION}
         container_name: ${MARIADB_HOST}
@@ -47,24 +48,16 @@ services:
             MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
         volumes:
             - ./dockers/web/mariadb:/var/lib/mysql
-            # - ./dockers/web/db/data:/bitnami/mysql
-    # mysql:
-    #     image: jengweb/mysql:5.7
-    #     volumes:
-    #         - ./dockers/web/db/data:/bitnami/mysql
-    #     # env_file: 
-    #     #     - ./.env
-    #     environment:
-    #         # - MYSQL_USER=my_user
-    #         # - MYSQL_PASSWORD=my_password
-    #         # - MYSQL_DATABASE=personality
-    #         - MYSQL_ROOT_PASSWORD=my_password
+    # mysqldb:
+    #     image: mysql:${MYSQL_VERSION}
+    #     container_name: ${MYSQL_HOST}
     #     restart: always
-    # phpmyadmin:
-    #     image: phpmyadmin/phpmyadmin
-    #     depends_on:
-    #         - mysql
+    #     env_file:
+    #         - ".env"
     #     environment:
-    #         # - PMA_USER=my_user
-    #         # - PMA_PASSWORD=my_password
-    #         - PMA_HOST=mysql
+    #         - MYSQL_DATABASE=${MYSQL_DATABASE}
+    #         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    #         - MYSQL_USER=${MYSQL_USER}
+    #         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    #     volumes:
+    #         - ./dockers/web/mysql:/var/lib/mysql

@@ -1,3 +1,4 @@
 dockers/web/lb/logs/*
 dockers/web/mariadb/*
+dockers/web/mysql/*
 .env
