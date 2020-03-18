@@ -27,7 +27,7 @@ docker ps -a
 
 SSH into a running container
 ```
-docker exec -it containerID bash
+docker exec -it containerName bash
 ```
 
 ### Docker Compose
