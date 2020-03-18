@@ -43,4 +43,21 @@ docker-compose down -v
 sudo vi /etc/hosts
 sudo source /etc/hosts
 ```
+
+```
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+...
+
+# Example
+127.0.0.1       node-app.local
+127.0.0.1       node-app-db.local
+
+...
+# End of section
+```
 ---
