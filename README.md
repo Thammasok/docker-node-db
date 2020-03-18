@@ -26,6 +26,7 @@ docker exec -it containerID bash
 docker-compose up --build -d
 docker-compose down -v
 ```
+---
 
 ### Local
 - set hosts
@@ -33,3 +34,4 @@ docker-compose down -v
 sudo vi /etc/hosts
 sudo source /etc/hosts
 ```
+---
