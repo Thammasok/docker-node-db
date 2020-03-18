@@ -16,6 +16,11 @@ docker images
 docker rmi -f id
 ```
 
+show all container
+```
+docker ps -a 
+```
+
 SSH into a running container
 ```
 docker exec -it containerID bash
