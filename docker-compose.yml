@@ -3,7 +3,7 @@ version: '3.7'
 services:
     lb:
         container_name: nginx
-        image: nginx:1.12
+        image: jengweb/nginx:1.12
         ports:
             - 80:8080
         depends_on:
@@ -11,6 +11,38 @@ services:
         volumes:
             - ./dockers/web/lb/logs:/opt/bitnami/nginx/logs
             - ./dockers/web/lb/nginx:/bitnami/nginx
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=${MYSQL_HOST}
+        restart: always
+        depends_on:
+            - mysqldb
+    mysqldb:
+        image: mysql:${MYSQL_VERSION}
+        container_name: ${MYSQL_HOST}
+        restart: always
+        env_file:
+            - ".env"
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        volumes:
+            - ./dockers/web/mysql:/var/lib/mysql
+    # mariadb:
+    #     image: mariadb:${MARIADB_VERSION}
+    #     container_name: ${MARIADB_HOST}
+    #     restart: always
+    #     env_file:
+    #         - ".env"
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    #     volumes:
+    #         - ./dockers/web/mariadb:/var/lib/mysql
     node-app:
         container_name: node_app
         build:
@@ -20,44 +52,8 @@ services:
             - ./node-app:/usr/src/app
             - /usr/src/app/node_modules
             - /usr/src/app/build
-        # ports:
-        #     - 3000:3000
-        # command: "npm start"
         # environment: 
         #     NODE_ENV: production
+        # depends_on:
+        #     - mysqldb
         restart: always
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: phpmyadmin
-        environment:
-            - PMA_ARBITRARY=1
-            # MYSQL_HOST
-            # - PMA_HOST=${MYSQL_HOST}
-            # MARIADB_HOST
-            - PMA_HOST=${MARIADB_HOST}
-        restart: always
-        depends_on:
-            - mariadb
-    mariadb:
-        image: mariadb:${MARIADB_VERSION}
-        container_name: ${MARIADB_HOST}
-        restart: always
-        env_file:
-            - ".env"
-        environment:
-            MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
-        volumes:
-            - ./dockers/web/mariadb:/var/lib/mysql
-    # mysqldb:
-    #     image: mysql:${MYSQL_VERSION}
-    #     container_name: ${MYSQL_HOST}
-    #     restart: always
-    #     env_file:
-    #         - ".env"
-    #     environment:
-    #         - MYSQL_DATABASE=${MYSQL_DATABASE}
-    #         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    #         - MYSQL_USER=${MYSQL_USER}
-    #         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    #     volumes:
-    #         - ./dockers/web/mysql:/var/lib/mysql
