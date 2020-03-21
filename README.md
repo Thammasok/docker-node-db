@@ -25,6 +25,11 @@ show all container
 docker ps -a 
 ```
 
+show logs
+```
+docker logs -f name
+```
+
 SSH into a running container
 ```
 docker exec -it containerName bash
