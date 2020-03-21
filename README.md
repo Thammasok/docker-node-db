@@ -37,7 +37,7 @@ docker-compose down -v
 ```
 ---
 
-### Local
+## On Local
 - set hosts
 ```
 sudo vi /etc/hosts
@@ -61,3 +61,93 @@ sudo source /etc/hosts
 # End of section
 ```
 ---
+
+## On Server
+
+1. install docker
+(install docker-ce on ubuntu)[https://docs.docker.com/install/linux/docker-ce/ubuntu/]
+
+2. Clone Docker this Project
+```
+git clone https://github.com/Thammasok/docker-node-db.git
+```
+If you split the project, clone that project as well.
+```
+cd docker-node-db
+git clone your git project
+```
+and change folder path in build context and volumes
+```
+node-app:
+    container_name: node_app
+    build:
+        context: ./project-folder
+        dockerfile: Dockerfile
+    volumes:
+        - ./project-folder:/usr/src/app
+    ...
+```
+
+3. Allow Permission dockers folder
+```
+chmod -R 777 dockers
+chmod 777 clearScript.sh
+chmod 777 composer-update.sh
+chmod 777 delete-initial.sh
+```
+
+4. Delete initial file
+```
+./delete-initial.sh
+```
+
+5. Set domain name and Sub domain
+```
+Example
+- domain.com -> website
+- pma.domain.com -> phpmyadmin
+```
+
+6. Change server_name
+- location file
+```
+cd docker/web/lb/nginx/conf/vhosts
+vi app.conf
+```
+- change server_name
+```
+upstream web {
+    server node-app:3000;
+}
+
+upstream phpmyadmin {
+    server phpmyadmin;
+}
+
+server {
+    listen 8080;
+
+    server_name domain.com;
+
+    ...
+}
+
+server {
+    listen 8080;
+
+    server_name pma.domain.com;
+
+    ...
+}
+```
+
+7. Set Environment file (.env) in Docker and Project
+```
+cp .env.example .env
+vi .env
+```
+
+8. Start Docker compose
+```
+docker-compose up --build -d
+```
