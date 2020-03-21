@@ -103,7 +103,7 @@ sudo source /etc/hosts
 ## On Server
 
 1. install docker
-(install docker-ce on ubuntu)[https://docs.docker.com/install/linux/docker-ce/ubuntu/]
+[nstall docker-ce on ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
 2. Clone Docker this Project
 ```
