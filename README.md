@@ -38,7 +38,40 @@ docker-compose down -v
 ---
 
 ## On Local
-- set hosts
+1. Change server_name
+- location file
+```
+cd docker/web/lb/nginx/conf/vhosts
+vi app.conf
+```
+- change server_name
+```
+upstream web {
+    server node-app:3000;
+}
+
+upstream phpmyadmin {
+    server phpmyadmin;
+}
+
+server {
+    listen 8080;
+
+    server_name node-app.local;
+
+    ...
+}
+
+server {
+    listen 8080;
+
+    server_name node-app-db.local;
+
+    ...
+}
+```
+
+2. set hosts
 ```
 sudo vi /etc/hosts
 sudo source /etc/hosts
@@ -151,3 +184,4 @@ vi .env
 ```
 docker-compose up --build -d
 ```
+---
