@@ -54,6 +54,6 @@ services:
             - /usr/src/app/build
         # environment: 
         #     NODE_ENV: production
-        # depends_on:
-        #     - mysqldb
+        depends_on:
+            - mysqldb
         restart: always
