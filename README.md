@@ -132,6 +132,7 @@ node-app:
 chmod -R 777 dockers
 chmod 777 composer-update.sh
 chmod 777 delete-initial.sh
+chmod -R 777 your project
 ```
 
 4. Delete initial file
