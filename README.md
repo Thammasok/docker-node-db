@@ -130,7 +130,6 @@ node-app:
 3. Allow Permission dockers folder
 ```
 chmod -R 777 dockers
-chmod 777 clearScript.sh
 chmod 777 composer-update.sh
 chmod 777 delete-initial.sh
 ```
