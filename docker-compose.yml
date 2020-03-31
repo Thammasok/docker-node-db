@@ -6,11 +6,13 @@ services:
         image: jengweb/nginx:1.12
         ports:
             - 80:8080
+            - 443:8443
         depends_on:
             - node-app
         volumes:
             - ./dockers/web/lb/logs:/opt/bitnami/nginx/logs
             - ./dockers/web/lb/nginx:/bitnami/nginx
+            - ./dockers/web/lb/nginx/conf/bitnami/certs:/bitnami/nginx/conf/bitnami/certs
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         container_name: phpmyadmin
@@ -44,7 +46,7 @@ services:
     #     volumes:
     #         - ./dockers/web/mariadb:/var/lib/mysql
     node-app:
-        container_name: node_app
+        container_name: node-app
         build:
             context: ./node-app
             dockerfile: Dockerfile
